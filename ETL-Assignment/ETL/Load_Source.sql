@@ -141,3 +141,7 @@ SELECT TOP (20) *
 FROM src.EmployeeMaster
 ORDER BY employee_id, role_start_date;
 
+SELECT TOP (20) *
+FROM src.DUExamSchedule_Raw
+ORDER BY employee_id;
+GO
