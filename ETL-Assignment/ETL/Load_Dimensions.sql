@@ -1,17 +1,19 @@
 -- =========================================================
 -- Load_Dimensions.sql
 -- RESPONSABIL: Membrul 3 (Data Warehouse Developer)
--- SCOP: Populeaza toate tabelele de dimensiune din dwh,
---       pornind de la datele deja curatate din "stg".
--- DEPENDENTA: stg.* trebuie sa fie populat (Load_Staging.sql rulat).
 -- =========================================================
 USE ETL_Assignment;
 GO
 
+TRUNCATE TABLE dwh.Fact_EmployeeActivity;
+GO
+
 -- ---------------------------------------------------------
 -- dwh.Dim_Date
--- Generam toate datele pentru anul 2026, folosind un CTE recursiv.
 -- ---------------------------------------------------------
+DELETE FROM dwh.Dim_Date;
+GO
+
 WITH DateSequence AS (
     SELECT CAST('2026-01-01' AS DATE) AS full_date
     UNION ALL
@@ -33,20 +35,50 @@ GO
 
 -- ---------------------------------------------------------
 -- dwh.Dim_ActivityType
--- Lista fixa de tipuri de activitate posibile.
 -- ---------------------------------------------------------
+DELETE FROM dwh.Dim_ActivityType;
+GO
+
 INSERT INTO dwh.Dim_ActivityType (activity_type)
 VALUES ('Working'), ('Absence'), ('Training'), ('Exam'), ('Holiday');
 GO
 
--- TODO: dwh.Dim_Employee <- stg.EmployeeMaster
---   Discutati in echipa: implementati SCD Type 2 complet
---   (verificati schimbari fata de versiunea curenta si inchideti
---   randul vechi), sau pentru inceput toti intra ca is_current = 1?
---   -> ASTEAPTA finalizarea Load_Staging.sql (Membrul 2)
+-- ---------------------------------------------------------
+-- dwh.Dim_Employee <- stg.EmployeeMaster
+-- ---------------------------------------------------------
+DELETE FROM dwh.Dim_Employee;
+GO
 
--- TODO: dwh.Dim_Project <- stg.Timesheets (valori distincte de proiect)
---   -> ASTEAPTA finalizarea Load_Staging.sql (Membrul 2)
+INSERT INTO dwh.Dim_Employee
+    (employee_id, full_name, grade, discipline, line_manager, delivery_unit, valid_from, valid_to, is_current)
+SELECT
+    employee_id, full_name, grade, discipline, line_manager, delivery_unit,
+    valid_from,
+    ISNULL(valid_to, '9999-12-31'),
+    is_current
+FROM stg.EmployeeMaster;
+GO
 
--- TODO: dwh.Dim_Training <- stg.TrainingAttendance (valori distincte de training)
---   -> ASTEAPTA finalizarea Load_Staging.sql (Membrul 2)
+-- ---------------------------------------------------------
+-- dwh.Dim_Project <- stg.Timesheets
+-- ---------------------------------------------------------
+DELETE FROM dwh.Dim_Project;
+GO
+
+INSERT INTO dwh.Dim_Project (project_name)
+SELECT DISTINCT project_name
+FROM stg.Timesheets
+WHERE project_name IS NOT NULL;
+GO
+
+-- ---------------------------------------------------------
+-- dwh.Dim_Training <- stg.TrainingAttendance
+-- ---------------------------------------------------------
+DELETE FROM dwh.Dim_Training;
+GO
+
+INSERT INTO dwh.Dim_Training (training_name)
+SELECT DISTINCT training_name
+FROM stg.TrainingAttendance
+WHERE training_name IS NOT NULL;
+GO
