@@ -61,3 +61,7 @@ CREATE TABLE dwh.Fact_EmployeeActivity (
     training_sk      INT NULL REFERENCES dwh.Dim_Training(training_sk),
     hours_worked     DECIMAL(4,2) NULL
 );
+
+
+select * from dwh.Fact_EmployeeActivity;
+GO
