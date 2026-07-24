@@ -1,20 +1,20 @@
 # ETL: Data Integration, Modelling & Reporting
 
-Proiect de echipă realizat în cadrul **Dava.X Academy** (Endava) — un pipeline ETL complet care integrează mai multe surse de date despre activitatea angajaților (timesheets, absențe, traininguri, programări de examen, date administrative) într-un model analitic de tip **Star Schema**, gata pentru interogare și raportare.
+A team project built as part of **Dava.X Academy** (Endava) — a complete ETL pipeline that integrates multiple employee activity data sources (timesheets, absences, training attendance, exam/absence schedules, employee master data) into an analytical **Star Schema** model, ready for querying and reporting.
 
-## Ce conține proiectul
+## What this project includes
 
-- **Bază de date** (SQL Server) organizată pe 3 niveluri: `src` (surse brute) → `stg` (staging, curățare/transformare) → `dwh` (Data Warehouse, Star Schema)
-- **Proces ETL** complet: import, transformare (inclusiv transformarea unui calendar tip matrice în format tabelar), populare dimensiuni și tabelă de fapte
-- **Rapoarte SQL** și **dashboard Power BI**
-- **Validare** automată a integrității datelor (comparare staging vs. Data Warehouse)
-- **Documentație completă** (arhitectură, ghid de instalare/rulare, ERD)
+- **Database** (SQL Server) organized in 3 layers: `src` (raw sources) → `stg` (staging, cleaning/transformation) → `dwh` (Data Warehouse, Star Schema)
+- **Complete ETL process**: import, transformation (including converting a matrix-style schedule into tabular format), dimension and fact table loading
+- **SQL reports** and a **Power BI dashboard**
+- **Automated validation** of data integrity (comparing staging vs. Data Warehouse)
+- **Full documentation** (architecture, installation/run guide, ERD)
 
-Detalii complete: [`ETL-Assignment/Documentation/DOCUMENTATIE.pdf`](ETL-Assignment/Documentation) și [`ETL-Assignment/Documentation/README.md`](ETL-Assignment/Documentation/README.md).
+Full details: [`ETL-Assignment/Documentation/DOCUMENTATIE.pdf`](ETL-Assignment/Documentation) and [`ETL-Assignment/Documentation/README.md`](ETL-Assignment/Documentation/README.md).
 
-## Echipa
+## Team
 
-| Rol | Membru |
+| Role | Member |
 |---|---|
 | Database Architect | Buta Tudor |
 | ETL Developer | Criste Casian Stelian |
