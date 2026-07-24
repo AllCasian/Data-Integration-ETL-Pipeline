@@ -13,7 +13,8 @@ ETL-Assignment/
 │   ├── 01_CreateDatabase.sql     # Membrul 1 - baza de date + schema-uri
 │   ├── 02_SourceSchema.sql       # Membrul 1 - tabele "src"
 │   ├── 03_StagingSchema.sql      # Membrul 1 - tabele "stg"
-│   └── 04_DWSchema.sql           # Membrul 1 (+3) - star schema "dwh"
+│   ├── 04_DWSchema.sql           # Membrul 1 (+3) - star schema "dwh"
+│   └── Adding columns for DU table.sql
 ├── ETL/
 │   ├── Load_Source.sql           # Membrul 2 - import date brute
 │   ├── Load_Staging.sql          # Membrul 2 - src -> stg (+ UNPIVOT schedule)
